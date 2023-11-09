@@ -12,6 +12,7 @@ As opções de excluir, alterar e localizar um contato deve realizada a partir d
 A avaliação do trabalho deve levar em conta o atendimento a todos os requisitos funcionais, bem como a organização e uso de boas práticas de desenvolvimento no código.*/
 
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
 
 //Estrutura do contato
@@ -27,6 +28,7 @@ int main(){
 
 //Declaração de variáveis
     int opcao, n = 0;
+    Contato contato[2];
 
 //Estrutura de repetição que mantém o programa rodando até o usuário optar por sair
     do{
@@ -41,25 +43,13 @@ int main(){
         switch(opcao){
             case 1:
                 n++;
-                    printf("Digite a placa do veículo: \n");
-                    scanf("%s", veiculo[n].placa);
+                    printf("Digite o código do contato: \n");
+                    scanf("%s", contato[n].codigo);
 
-                    printf("Digite a categoria do veículo: \n");
-                    scanf("%s", veiculo[n].tipo);
-
-                    printf("Digite o modelo do veículo: \n");
-                    scanf("%s", veiculo[n].modelo);
-
-                    printf("Digite o ano do veículo: \n");
-                    scanf("%d", &veiculo[n].ano);
             break;
             case 2:
                 for (int n = 0; n < 3; n++){
-                    printf("Veículo %d :\n", n + 1);
-                    printf("Modelo: %s\n", veiculo[n].modelo);
-                    printf("Ano: %d\n", veiculo[n].ano);                
-                    printf("Categoria: %s\n", veiculo[n].tipo);
-                    printf("Placa: %s\n", veiculo[n].placa);                
+                    printf("Código: %d\n", contato[n].codigo);               
                 }
             break;
             case 3:
