@@ -38,14 +38,23 @@ int main(){
         printf("3 - Alterar um contato existente::\n");
         printf("4 - Listar todos os contatos cadastrados:\n");
         printf("5 - Localizar um contato:\n");
+        printf("Pressione qualquer outra tecla para encerrar o programa.\n");
         scanf("%d", &opcao);
 
         switch(opcao){
             case 1:
-                n++;
                     printf("Digite o código do contato: \n");
-                    scanf("%s", contato[n].codigo);
+                    scanf("%d", contato[n].codigo);
 
+                    printf("Digite o nome do contato: \n");
+                    scanf("%s", contato[n].nome);
+
+                    printf("Digite o número de telefone do contato: \n");
+                    scanf("%d", contato[n].telefone);
+
+                    printf("Selecione o tipo de número (pessoal ou trabalho): \n");
+                    scanf("%s", contato[n].tipo);
+                n++;
             break;
             case 2:
                 for (int n = 0; n < 3; n++){
@@ -54,8 +63,14 @@ int main(){
             break;
             case 3:
                 return 0;
+            case 4:
+                printf("Digite o código do contato: \n");
+            break;
+            case 5:
+                printf("Digite o código do contato: \n");
+            break;
             default:
-                printf("Opção inválida!\n");
+                return 0;
             break;
         }
     }while(main != 0);
