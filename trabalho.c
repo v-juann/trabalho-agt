@@ -1,4 +1,8 @@
-/*O objetivo deste trabalho consiste em desenvolver um programa para manter as informações de uma agenda de contatos utilizando variáveis compostas. 
+/*
+Universidade do Estado de Santa Catarina
+Alunos: Nícolas Vinícius Lobo Morais, Vinicius Juann Pereira
+Trabalho Final - Agenda de Contatos
+O objetivo deste trabalho consiste em desenvolver um programa para manter as informações de uma agenda de contatos utilizando variáveis compostas. 
 A estrutura do contato deve conter um código de identificação, nome, telefone e tipo do contato (pessoal ou trabalho).
 O programa deve conter um menu inicial com 5 opções: 
 i) incluir um novo contato; 
