@@ -74,7 +74,7 @@ int main(){
                 printf("Digite o código do contato: \n");
             break;
             default:
-                return 0;
+                printf("Opção inválida. Por favor, insira um número entre 1 e 5.\n");
             break;
         }
     }while(main != 0);
