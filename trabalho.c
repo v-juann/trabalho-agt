@@ -22,9 +22,9 @@ A avaliação do trabalho deve levar em conta o atendimento a todos os requisito
 //Estrutura do contato
 typedef struct{
     int codigo;
-    char nome[15];
+    char nome[50];
     int telefone;
-    char tipo[8];
+    char tipo[15];
 }Contato;
 
 //Início do programa
@@ -32,7 +32,7 @@ int main(){
 
 //Declaração de variáveis
     int opcao, n = 0;
-    Contato contato[2];
+    Contato contato[50];
 
 //Estrutura de repetição que mantém o programa rodando até o usuário optar por sair
     do{
