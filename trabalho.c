@@ -61,10 +61,39 @@ int main(){
                 n++;
             break;
             case 2:
-                for (int n = 0; n < 3; n++){
-                    printf("Código: %d\n", contato[n].codigo);               
+                if (n > 0) {
+                    printf("Contatos existentes:\n");
+                    for (int i = 0; i < n; i++) {
+                        printf("Código: %d\n", contato[i].codigo);
+                    }
+
+                    int excluir;
+                    printf("Digite o código do contato que você quer excluir: \n");
+                    scanf("%d", &excluir);
+
+                    int excluir = -1;
+                    for (int i = 0; i < n; i++) {
+                        if (contato[i].codigo == excluir) {
+                            excluir = i;
+                            break;
+                        }
+                    }
+
+                    if (excluir != -1) {
+                        for (int i = excluir; i < n - 1; i++) {
+                            contato[i] = contato[i + 1];
+                        }
+
+                        n--;
+
+                        printf("Contato excluído com sucesso.\n");
+                    } else {
+                        printf("Código do contato não encontrado.\n");
+                    }
+                } else {
+                    printf("Nenhum contato cadastrado para excluir.\n");
                 }
-            break;
+                break;
             case 3:
                 return 0;
             case 4:
