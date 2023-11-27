@@ -65,7 +65,7 @@ int main(){
                 
                     n++;
 
-                    printf("Contato alterado com sucesso.");
+                    printf("Contato adicionado com sucesso.");
             break;
 
             case 2:
