@@ -47,7 +47,12 @@ int main(){
 
         switch(opcao){
             case 1:
-                    contato = (Contato *)realloc(contato, n* sizeof(Contato));
+                //teste
+                    printf("Endereço do ponteiro contato antes: %p\n", (void *)contato);
+                    contato = (Contato *)realloc(contato, (n + 1) * sizeof(Contato));
+                    printf("Endereço do ponteiro dps %p\n", (void *)contato);
+                //teste
+                
                     printf("Digite o código do contato: \n");
                     scanf("%d", contato[n].codigo);
 
