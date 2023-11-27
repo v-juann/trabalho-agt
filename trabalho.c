@@ -106,5 +106,5 @@ int main(){
                 printf("Opção inválida. Por favor, insira um número entre 1 e 5.\n");
             break;
         }
-    }while(main != 0);
+    }while (opcao >= 1 && opcao <= 5);;
 }
