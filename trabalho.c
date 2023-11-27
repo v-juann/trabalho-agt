@@ -32,14 +32,14 @@ int main(){
 
 //Declaração de variáveis
     int opcao, n = 0;
-    Contato contato[50];
+    Contato *contato = NULL;
 
 //Estrutura de repetição que mantém o programa rodando até o usuário optar por sair
     do{
         printf("Selecione a opção: \n");
         printf("1 - Incluir novo contato:\n");
         printf("2 - Excluir um contato existente:\n");
-        printf("3 - Alterar um contato existente::\n");
+        printf("3 - Alterar um contato existente:\n");
         printf("4 - Listar todos os contatos cadastrados:\n");
         printf("5 - Localizar um contato:\n");
         printf("Pressione qualquer outra tecla para encerrar o programa.\n");
@@ -67,9 +67,9 @@ int main(){
                         printf("Código: %d\n", contato[i].codigo);
                     }
 
-                    int excluir;
+                    int excluir2;
                     printf("Digite o código do contato que você quer excluir: \n");
-                    scanf("%d", &excluir);
+                    scanf("%d", &excluir2);
 
                     int excluir = -1;
                     for (int i = 0; i < n; i++) {
@@ -95,12 +95,12 @@ int main(){
                 }
                 break;
             case 3:
-                return 0;
+                //Alterar um contato existente
             case 4:
-                printf("Digite o código do contato: \n");
+                // Listar todos os contatos cadastrados
             break;
             case 5:
-                printf("Digite o código do contato: \n");
+                //Localizar um contato
             break;
             default:
                 printf("Opção inválida. Por favor, insira um número entre 1 e 5.\n");
