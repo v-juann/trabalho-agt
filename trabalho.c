@@ -50,9 +50,20 @@ int main(){
         switch(opcao){
             
             case 1:
+<<<<<<< HEAD
             //Inclusão de novo contato                    
                     contato = realloc (contato, (sizeof(Contato)*(n+1)));
                     (contato+n)->codigo = n+1;
+=======
+                //teste
+                    printf("Endereço do ponteiro contato antes: %p\n", (void *)contato);
+                    contato = (Contato *)realloc(contato, (n + 1) * sizeof(Contato));
+                    printf("Endereço do ponteiro dps %p\n", (void *)contato);
+                //teste
+                
+                    printf("Digite o código do contato: \n");
+                    scanf("%d", contato[n].codigo);
+>>>>>>> 24ddae7137fba60bc46cec579bada755c5c6351c
 
                     printf("Digite o nome do contato que será salvo com o código %d: \n",contato[n].codigo);
                     scanf("%s", contato[n].nome);
