@@ -77,7 +77,7 @@ int main(){
 
                     int excluircod; // Excluir código
                     printf("Digite o código do contato que você quer excluir: \n");
-                    scanf("%d", &excluir2);
+                    scanf("%d", &excluircod);
 
                     int excluirposi = -1; // Excluir a posição no vetor
                     for (int i = 0; i < n; i++) {
