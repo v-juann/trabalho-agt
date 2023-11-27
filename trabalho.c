@@ -19,20 +19,29 @@ A avaliação do trabalho deve levar em conta o atendimento a todos os requisito
 #include<stdlib.h>
 #include<string.h>
 
+// Enumerador para o tipo de contato
+typedef enum{
+    pessoal = 1,
+    trabalho = 2,
+}Tipo;
+
+// Declaração da variável global
+Tipo tipo;
+
 //Estrutura do contato
 typedef struct{
     int codigo;
     char nome[15];
     int telefone;
-    char tipo[8];
+    // Tipo tipo;
 }Contato;
 
 //Início do programa
 int main(){
 
 //Declaração de variáveis
-    int opcao, n = 0;
-    Contato contato[2];
+    int opcao, ident, n = 0;
+    Contato *contato;
 
 //Estrutura de repetição que mantém o programa rodando até o usuário optar por sair
     do{
@@ -47,8 +56,9 @@ int main(){
 
         switch(opcao){
             case 1:
-                    printf("Digite o código do contato: \n");
-                    scanf("%d", contato[n].codigo);
+                    contato = (void*) realloc(contato, sizeof(contato)*n);
+                    /*printf("Digite o código do contato: \n");
+                    scanf("%d", contato[n].codigo);*/
 
                     printf("Digite o nome do contato: \n");
                     scanf("%s", contato[n].nome);
@@ -56,26 +66,37 @@ int main(){
                     printf("Digite o número de telefone do contato: \n");
                     scanf("%d", contato[n].telefone);
 
-                    printf("Selecione o tipo de número (pessoal ou trabalho): \n");
-                    scanf("%s", contato[n].tipo);
+                    //printf("Selecione o tipo de número (pessoal ou trabalho): \n");
+                    //scanf("%s", contato[n].tipo);
                 n++;
             break;
+
             case 2:
-                for (int n = 0; n < 3; n++){
-                    printf("Código: %d\n", contato[n].codigo);               
+                printf("Digite o código do contato que deseja excluir: \n");
+                scanf("%d", &ident);
+
+            break;
+
+            case 3:
+                printf("Digite o código do contato que deseja alterar: \n");
+                scanf("%d", &ident);
+
+            case 4:
+                for (int x = 1; x < n; x++){
+                    printf("Código: %d\n", contato[x].codigo);
+                    printf("Código: %s\n", contato[x].nome);  
+                    printf("Código: %d\n", contato[x].telefone);
+                    //printf("Código: %s\n", contato[x].tipo);                   
                 }
             break;
-            case 3:
-                return 0;
-            case 4:
-                printf("Digite o código do contato: \n");
-            break;
+
             case 5:
                 printf("Digite o código do contato: \n");
+                scanf("%d", &ident);
             break;
+
             default:
-                printf("Opção inválida. Por favor, insira um número entre 1 e 5.\n");
-            break;
+                return 0;
         }
     }while(main != 0);
 }
