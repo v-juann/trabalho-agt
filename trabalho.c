@@ -60,6 +60,8 @@ int main(){
                     printf("Digite o número de telefone do contato que será salvo com o código %d: \n",contato[n].codigo);
                     scanf("%s", contato[n].telefone);
                     n++;
+
+                    printf("Contato alterado com sucesso.");
             break;
 
             case 2:
