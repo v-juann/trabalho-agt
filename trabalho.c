@@ -59,6 +59,10 @@ int main(){
 
                     printf("Digite o número de telefone do contato que será salvo com o código %d: \n",contato[n].codigo);
                     scanf("%s", contato[n].telefone);
+
+                    printf("Digite o tipo de telefone (pessoal ou trabalho): \n");
+                    scanf("%s", contato[n].tipo);
+                
                     n++;
 
                     printf("Contato alterado com sucesso.");
@@ -123,6 +127,9 @@ int main(){
                     printf("Código: %d \n", contato[w].codigo);
                     printf("Nome: %s \n", contato[w].nome);
                     printf("Telefone: %s \n", contato[w].telefone);
+                    printf("Tipo: %s \n", contato[w].tipo);
+                    printf("-----------------\n");
+
                 }
             break;
 
@@ -146,5 +153,5 @@ int main(){
             default:
                 return 0;
         }
-    }while (main!=0);
+    }while (opcao!=0);
 }
