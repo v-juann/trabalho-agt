@@ -71,20 +71,20 @@ int main(){
                         printf("Código: %d\n", contato[i].codigo);
                     }
 
-                    int excluir2;
+                    int excluircod; // Excluir código
                     printf("Digite o código do contato que você quer excluir: \n");
                     scanf("%d", &excluir2);
 
-                    int excluir = -1;
+                    int excluirposi = -1; // Excluir a posição no vetor
                     for (int i = 0; i < n; i++) {
-                        if (contato[i].codigo == excluir) {
-                            excluir = i;
+                        if (contato[i].codigo == excluircod) {
+                            excluirposi = i;
                             break;
                         }
                     }
 
-                    if (excluir != -1) {
-                        for (int i = excluir; i < n - 1; i++) {
+                    if (excluirposi != -1) {
+                        for (int i = excluirposi; i < n - 1; i++) {
                             contato[i] = contato[i + 1];
                         }
 
@@ -105,10 +105,11 @@ int main(){
                 scanf("%d", &ident);
 
                 if(ident > 0 && ident <= n){                    
-                    printf("Digite o novo valor para o o nome do contato %s (%s): \n",contato[ident-1].codigo, contato[ident-1].nome);
+                    printf("Digite o novo valor para o o nome do contato %d (%s): \n",contato[ident-1].codigo, contato[ident-1].nome);
                     scanf("%s", contato[ident].nome);
-                    printf("Digite o novo valor para o telefone do contato %s (%s): \n",contato[ident-1].codigo, contato[ident-1].telefone);
+                    printf("Digite o novo valor para o telefone do contato %d (%s): \n",contato[ident-1].codigo, contato[ident-1].telefone);
                     scanf("%s", contato[ident].telefone);
+                    printf("Contato alterado com sucesso.\n");
                 }
                 else{
                     printf("Contato inválido!\n");
