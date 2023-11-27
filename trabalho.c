@@ -47,6 +47,7 @@ int main(){
 
         switch(opcao){
             case 1:
+                    contato = (Contato *)realloc(contato, n* sizeof(Contato));
                     printf("Digite o código do contato: \n");
                     scanf("%d", contato[n].codigo);
 
