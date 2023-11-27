@@ -25,7 +25,7 @@ typedef struct{
     int codigo;
     char nome[15];
     char telefone[12];
-    //char tipo[15];
+    char tipo[15];
 }Contato;
 
 //Início do programa
@@ -65,10 +65,11 @@ int main(){
                 
                     n++;
 
-                    printf("Contato adicionado com sucesso.");
+                    printf("Contato adicionado com sucesso.\n");
             break;
 
             case 2:
+                // Verifica se tem contatos cadastrados
                 if (n > 0) {
                     printf("Contatos existentes:\n");
                     for (int i = 0; i < n; i++) {
@@ -154,4 +155,8 @@ int main(){
                 return 0;
         }
     }while (opcao!=0);
+
+    free(contato);
+
+    return 0;
 }
