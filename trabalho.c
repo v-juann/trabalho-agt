@@ -18,32 +18,30 @@ A avaliação do trabalho deve levar em conta o atendimento a todos os requisito
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
-// Enumerador para o tipo de contato
-typedef enum{
-    pessoal = 1,
-    trabalho = 2,
-}Tipo;
-
-// Declaração da variável global
-Tipo tipo;
 #include<malloc.h>
+
+//Enumerador que define o tipo de contato
+typedef enum{
+    Pessoal,
+    Trabalho
+}Tipo;
 
 //Estrutura do contato
 typedef struct{
     int codigo;
     char nome[15];
-    int telefone;
-    char tipo[8];
+    char telefone[12];
+    Tipo tipo;
 }Contato;
 
 //Início do programa
 int main(){
 
 //Declaração de variáveis
-    int opcao, n = 0;
-    Contato contato[2];
-
+    int opcao, ident, n = 0;
+    //Atribui um endereço não nulo ao ponteiro
+    Contato *contato = (Contato *) calloc(1, sizeof(Contato));
+    
 //Estrutura de repetição que mantém o programa rodando até o usuário optar por sair
     do{
         printf("Selecione a opção: \n");
@@ -58,41 +56,99 @@ int main(){
         switch(opcao){
             
             case 1:
-                    printf("Digite o código do contato: \n");
-                    scanf("%d", contato[n].codigo);
+            //Inclusão de novo contato                    
+                    contato = realloc (contato, (sizeof(Contato)*(n+1)));
+                    (contato+n)->codigo = n+1;
 
                     printf("Digite o nome do contato que será salvo com o código %d: \n",contato[n].codigo);
                     scanf("%s", contato[n].nome);
 
                     printf("Digite o número de telefone do contato que será salvo com o código %d: \n",contato[n].codigo);
                     scanf("%s", contato[n].telefone);
-
-                    printf("Selecione o tipo de número (pessoal ou trabalho): \n");
-                    scanf("%s", contato[n].tipo);
-                n++;
+                    n++;
             break;
 
             case 2:
-                for (int n = 0; n < 3; n++){
-                    printf("Código: %d\n", contato[n].codigo);               
+            //Exclusão de contato existente
+                if (n > 0) {
+                    printf("Contatos existentes:\n");
+                    for (int i = 0; i < n; i++) {
+                        printf("Código: %d\n", contato[i].codigo);
+                    }
+
+                    int excluir2;
+                    printf("Digite o código do contato que você quer excluir: \n");
+                    scanf("%d", &excluir2);
+
+                    int excluir = -1;
+                    for (int i = 0; i < n; i++) {
+                        if (contato[i].codigo == excluir) {
+                            excluir = i;
+                            break;
+                        }
+                    }
+
+                    if (excluir != -1) {
+                        for (int i = excluir; i < n - 1; i++) {
+                            contato[i] = contato[i + 1];
+                        }
+
+                        n--;
+
+                        printf("Contato excluído com sucesso.\n");
+                    } else {
+                        printf("Código do contato não encontrado.\n");
+                    }
+                } else {
+                    printf("Nenhum contato cadastrado para excluir.\n");
                 }
             break;
 
             case 3:
-                return 0;
+                //Alterar um contato existente
+                printf("Digite o código do contato que você quer alterar: \n");
+                scanf("%d", &ident);
+
+                if(ident > 0 && ident <= n){                    
+                    printf("Digite o novo valor para o o nome do contato %s (%s): \n",contato[ident-1].codigo, contato[ident-1].nome);
+                    scanf("%s", contato[ident].nome);
+                    printf("Digite o novo valor para o telefone do contato %s (%s): \n",contato[ident-1].codigo, contato[ident-1].telefone);
+                    scanf("%s", contato[ident].telefone);
+                }
+                else{
+                    printf("Contato inválido!\n");
+                }
+            break;
+            
             case 4:
-                printf("Digite o código do contato: \n");
+            //Lista todos os contatos cadastrados
+                for(int w = 0; w < n; w++){
+                    printf("\n-- Contato %d --\n", w+1);
+                    printf("Código: %d \n", contato[w].codigo);
+                    printf("Nome: %s \n", contato[w].nome);
+                    printf("Telefone: %s \n", contato[w].telefone);
+                }
             break;
 
             case 5:
-                printf("Digite o código do contato: \n");
+            //Localizar um contato
+                printf("Digite o código do contato que você quer localizar: \n");
+                scanf("%d", &ident);
+
+                if(ident > 0 && ident <= n){
+                    printf("\n-- Contato %d --\n", ident);
+                    printf("Código: %d \n", contato[ident-1].codigo);
+                    printf("Nome: %s \n", contato[ident-1].nome);
+                    printf("Telefone: %s \n", contato[ident-1].telefone);
+                }
+                else{
+                    printf("Contato inválido!\n");
+                }
             break;
+
+            //Opção padrão para encerrar o programa quando o usuário apertar uma tecla que não seja de 1 a 5
             default:
                 return 0;
         }
-    }while (opcao!=0);
-
-    free(contato);
-
-    return 0;
+    }while (main!=0);
 }
