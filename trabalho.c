@@ -1,5 +1,4 @@
-/*
-Universidade do Estado de Santa Catarina
+/* Universidade do Estado de Santa Catarina
 Alunos: Nícolas Vinícius Lobo Morais, Vinicius Juann Pereira
 Trabalho Final - Agenda de Contatos
 O objetivo deste trabalho consiste em desenvolver um programa para manter as informações de uma agenda de contatos utilizando variáveis compostas. 
@@ -15,6 +14,7 @@ Uma sugestão é incrementar uma unidade no último identificador válido de um 
 As opções de excluir, alterar e localizar um contato deve realizada a partir de um identificador do contato informado pelo usuário. 
 A avaliação do trabalho deve levar em conta o atendimento a todos os requisitos funcionais, bem como a organização e uso de boas práticas de desenvolvimento no código.*/
 
+//Cabeçalho
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -27,76 +27,72 @@ typedef enum{
 
 // Declaração da variável global
 Tipo tipo;
+#include<malloc.h>
 
 //Estrutura do contato
 typedef struct{
     int codigo;
     char nome[15];
     int telefone;
-    // Tipo tipo;
+    char tipo[8];
 }Contato;
 
 //Início do programa
 int main(){
 
 //Declaração de variáveis
-    int opcao, ident, n = 0;
-    Contato *contato;
+    int opcao, n = 0;
+    Contato contato[2];
 
 //Estrutura de repetição que mantém o programa rodando até o usuário optar por sair
     do{
         printf("Selecione a opção: \n");
         printf("1 - Incluir novo contato:\n");
         printf("2 - Excluir um contato existente:\n");
-        printf("3 - Alterar um contato existente::\n");
+        printf("3 - Alterar um contato existente:\n");
         printf("4 - Listar todos os contatos cadastrados:\n");
         printf("5 - Localizar um contato:\n");
         printf("Pressione qualquer outra tecla para encerrar o programa.\n");
         scanf("%d", &opcao);
 
         switch(opcao){
+            
             case 1:
-                    contato = (void*) realloc(contato, sizeof(contato)*n);
-                    /*printf("Digite o código do contato: \n");
-                    scanf("%d", contato[n].codigo);*/
+                    printf("Digite o código do contato: \n");
+                    scanf("%d", contato[n].codigo);
 
-                    printf("Digite o nome do contato: \n");
+                    printf("Digite o nome do contato que será salvo com o código %d: \n",contato[n].codigo);
                     scanf("%s", contato[n].nome);
 
-                    printf("Digite o número de telefone do contato: \n");
-                    scanf("%d", contato[n].telefone);
+                    printf("Digite o número de telefone do contato que será salvo com o código %d: \n",contato[n].codigo);
+                    scanf("%s", contato[n].telefone);
 
-                    //printf("Selecione o tipo de número (pessoal ou trabalho): \n");
-                    //scanf("%s", contato[n].tipo);
+                    printf("Selecione o tipo de número (pessoal ou trabalho): \n");
+                    scanf("%s", contato[n].tipo);
                 n++;
             break;
 
             case 2:
-                printf("Digite o código do contato que deseja excluir: \n");
-                scanf("%d", &ident);
-
+                for (int n = 0; n < 3; n++){
+                    printf("Código: %d\n", contato[n].codigo);               
+                }
             break;
 
             case 3:
-                printf("Digite o código do contato que deseja alterar: \n");
-                scanf("%d", &ident);
-
+                return 0;
             case 4:
-                for (int x = 1; x < n; x++){
-                    printf("Código: %d\n", contato[x].codigo);
-                    printf("Código: %s\n", contato[x].nome);  
-                    printf("Código: %d\n", contato[x].telefone);
-                    //printf("Código: %s\n", contato[x].tipo);                   
-                }
+                printf("Digite o código do contato: \n");
             break;
 
             case 5:
                 printf("Digite o código do contato: \n");
-                scanf("%d", &ident);
             break;
-
             default:
                 return 0;
         }
-    }while(main != 0);
+    }while (opcao!=0);
+
+    free(contato);
+
+    return 0;
 }
