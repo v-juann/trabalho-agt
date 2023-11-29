@@ -27,6 +27,7 @@ void alteracao();
 void exclusao();
 void inclusao();
 int validaEnum();
+void atualizaN();
 const char* exibeTipo();
 
 //Enumerador que define o tipo de contato
@@ -69,7 +70,7 @@ int main(){
             case 1:
             //Inclusao de novo contato
                 inclusao();
-
+                atualizaN();
             break;
 
             case 2:
@@ -83,7 +84,7 @@ int main(){
                     scanf("%d", &ident);
                     
                     exclusao(ident);
-                    
+                    atualizaN();
                 }else {
                     printf("\nNao existem contatos cadastrados.\n");
                 }
@@ -96,6 +97,7 @@ int main(){
                     scanf("%d", &ident);
 
                     alteracao(ident);
+                    atualizaN();
                 } else{
                     printf("\nNao existem contatos cadastrados.\n");
                 }
@@ -141,61 +143,73 @@ void listagem(){
 }
 
 void localizador(){
-    if(ident > 0 && ident <= n){
-        printf("\n-- Contato %d --\n", ident);
-        printf("Codigo: %d \n", contato[ident-1].codigo);
-        printf("Nome: %s \n", contato[ident-1].nome);
-        printf("Telefone: %s \n", contato[ident-1].telefone);
-        printf("Tipo: %s \n", exibeTipo(contato[ident-1].tipo));
+    if(ident > 0 && ident <= cont){
+        for (int x = 0; x <= cont; x++){
+            if (contato[x].codigo == ident){
+                printf("\n-- Contato %d --\n", ident);
+                printf("Codigo: %d \n", contato[x].codigo);
+                printf("Nome: %s \n", contato[x].nome);
+                printf("Telefone: %s \n", contato[x].telefone);
+                printf("Tipo: %s \n", exibeTipo(contato[x].tipo));
+            }
+        }
     }
     else{
         printf("Contato invalido!\n");
     }
 }
 void alteracao(){
-    if(ident > 0 && ident <= n){                    
-        printf("Digite o novo valor para o o nome do contato %d (%s): \n",contato[ident-1].codigo, contato[ident-1].nome);
-        scanf("%s", contato[ident-1].nome);
-        printf("Digite o novo valor para o telefone do contato %d (%s): \n",contato[ident-1].codigo, contato[ident-1].telefone);
-        scanf("%s", contato[ident-1].telefone);
-        
-        int verificacao = 0;
-        do{
-            printf("Digite o novo valor para o tipo do contato %d (%d): \n",contato[ident-1].codigo, contato[ident-1].tipo);
-            scanf("%d", &entrada);
-            verificacao = validaEnum(entrada);
-            if(verificacao == 0){
-                printf("Entrada invalida! Por favor digite novamente:\n");
-        }
-        }
-        while (verificacao == 0);
-        contato[ident-1].tipo = entrada;
+    if(ident > 0 && ident <= cont){   
+        for (int x = 0; x <= cont; x++){
+            if (contato[x].codigo == ident){                 
+                printf("Digite o novo valor para o o nome do contato %d (%s): \n",contato[x].codigo, contato[x].nome);
+                scanf("%s", contato[x].nome);
+                printf("Digite o novo valor para o telefone do contato %d (%s): \n",contato[x].codigo, contato[x].telefone);
+                scanf("%s", contato[x].telefone);
+                
+                int verificacao = 0;
+                do{
+                    printf("Digite o novo valor para o tipo do contato %d (%d): \n",contato[x].codigo, contato[x].tipo);
+                    scanf("%d", &entrada);
+                    verificacao = validaEnum(entrada);
+                    if(verificacao == 0){
+                        printf("Entrada invalida! Por favor digite novamente:\n");
+                }
+                }
+                while (verificacao == 0);
+                contato[x].tipo = entrada;
 
-        printf("Contato alterado com sucesso.\n");
+                printf("Contato alterado com sucesso.\n");
+            }
+        }
     }
     else{
         printf("Contato invalido!\n");
     }
 }
 void exclusao(){
-    if(ident > 0 && ident <= n){
-        for( int e = ident; e <= n; e++){
-            strncpy(contato[e-1].nome, contato[ident].nome, sizeof(contato[e].nome));
-            strncpy(contato[e-1].telefone, contato[ident].telefone, sizeof(contato[e].telefone));
-            contato[e-1].tipo = contato[e].tipo;
-            contato[e-1].codigo = contato[e].codigo;
-        } 
-        n = n - 1;
+    if(ident > 0 && ident <= cont){
+        for (int x = 0; x <= cont; x++){
+            if (contato[x].codigo == ident){
+                for( int e = ident; e <= n; e++){
+                    strncpy(contato[e-1].nome, contato[e].nome, sizeof(contato[e].nome));
+                    strncpy(contato[e-1].telefone, contato[e].telefone, sizeof(contato[e].telefone));
+                    contato[e-1].tipo = contato[e].tipo;
+                    contato[e-1].codigo = contato[e].codigo;
+                } 
 
-        contato = realloc (contato, (sizeof(Contato)*(n)));
+                contato = (Contato *) realloc (contato, (_msize(contato)-sizeof(Contato)));
 
-        printf("Contato excluido com sucesso.\n");
+
+                printf("Contato excluido com sucesso.\n");
+            }
+        }
     } else {
         printf("Codigo do contato nao encontrado.\n");
     }
 }
 void inclusao(){
-    contato = realloc (contato, (sizeof(Contato)*(n+1)));
+    contato = (Contato *) realloc (contato, (_msize(contato)+sizeof(Contato)));
     (contato+n)->codigo = cont+1;
 
     printf("Digite o nome do contato que sera salvo com o codigo %d: \n", cont+1);
@@ -220,7 +234,6 @@ void inclusao(){
 
     //"cont" é a contagem de vezes que a inclusão é rodada, e "n" é a posição do último índice do vetor
     cont++;
-    n++;
 }
 int validaEnum(){
     if(entrada < 0 || entrada > 1){
@@ -235,4 +248,7 @@ const char* exibeTipo(int param){
     }else{
         return"Trabalho";
     }
+}
+void atualizaN(){
+    n = (_msize(contato) - sizeof(Contato)) / sizeof(Contato);
 }
