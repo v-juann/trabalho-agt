@@ -1,36 +1,38 @@
 /* Universidade do Estado de Santa Catarina
-Alunos: Nícolas Vinícius Lobo Morais, Vinicius Juann Pereira
+Alunos: Nicolas Vinicius Lobo Morais, Vinicius Juann Pereira
 Trabalho Final - Agenda de Contatos
-O objetivo deste trabalho consiste em desenvolver um programa para manter as informações de uma agenda de contatos utilizando variáveis compostas. 
-A estrutura do contato deve conter um código de identificação, nome, telefone e tipo do contato (pessoal ou trabalho).
-O programa deve conter um menu inicial com 5 opções: 
+O objetivo deste trabalho consiste em desenvolver um programa para manter as informacoes de uma agenda de contatos utilizando variaveis compostas. 
+A estrutura do contato deve conter um codigo de identificacao, nome, telefone e tipo do contato (pessoal ou trabalho).
+O programa deve conter um menu inicial com 5 opcoes: 
 i) incluir um novo contato; 
 ii) excluir um contato existente; 
 iii) alterar um contato existente; 
 iv) listar todos os contatos cadastrados; e 
 v) localizar um contato.
-Na operação de inclusão de um novo contato, deve ser utilizado um identificador exclusivo para cada contato. 
-Uma sugestão é incrementar uma unidade no último identificador válido de um contato. 
-As opções de excluir, alterar e localizar um contato deve realizada a partir de um identificador do contato informado pelo usuário. 
-A avaliação do trabalho deve levar em conta o atendimento a todos os requisitos funcionais, bem como a organização e uso de boas práticas de desenvolvimento no código.*/
+Na operacao de inclusao de um novo contato, deve ser utilizado um identificador exclusivo para cada contato. 
+Uma sugestao é incrementar uma unidade no ultimo identificador valido de um contato. 
+As opcoes de excluir, alterar e localizar um contato deve realizada a partir de um identificador do contato informado pelo usuario. 
+A avaliacao do trabalho deve levar em conta o atendimento a todos os requisitos funcionais, bem como a organizacao e uso de boas praticas de desenvolvimento no codigo.*/
 
-//Declaração de funções
-void listagem();
-void localizador();
-void alteracao();
-void exclusao();
-void inclusao();
-
-//Cabeçalho
+//Cabecalho
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include<malloc.h>
 
+//Declaracao de funcoes
+void listagem();
+void localizador();
+void alteracao();
+void exclusao();
+void inclusao();
+int validaEnum();
+const char* exibeTipo();
+
 //Enumerador que define o tipo de contato
 typedef enum{
-    Pessoal,
-    Trabalho
+    Pessoal = 0,
+    Trabalho = 1
 }Tipo;
 
 //Estrutura do contato
@@ -41,19 +43,19 @@ typedef struct{
     Tipo tipo;
 }Contato;
 
-//Declaração de variáveis
-    int opcao, ident, n = 0;
+//Declaracao de variaveis
+    int opcao, ident, n = 0, cont = 0, entrada;
     Contato *contato;
 
-//Início do programa
+//Inicio do programa
 int main(){
 
-//Atribui um endereço não nulo ao ponteiro
+//Atribui um endereco nao nulo ao ponteiro
     contato = (Contato *) calloc(1, sizeof(Contato));
     
-//Estrutura de repetição que mantém o programa rodando até o usuário optar por sair
+//Estrutura de repeticao que mantém o programa rodando até o usuario optar por sair
     do{
-        printf("\nSelecione a opção: \n");
+        printf("\nSelecione a opcao: \n");
         printf("1 - Incluir novo contato:\n");
         printf("2 - Excluir um contato existente:\n");
         printf("3 - Alterar um contato existente:\n");
@@ -65,78 +67,89 @@ int main(){
         switch(opcao){
             
             case 1:
-            //Inclusão de novo contato
+            //Inclusao de novo contato
                 inclusao();
 
             break;
 
             case 2:
-            //Exclusão de contato existente
+            //Exclusao de contato existente
                 if (n > 0) {
                     printf("Contatos existentes:\n");
                     for (int i = 0; i < n; i++) {
-                        printf("Código: %d\n", contato[i].codigo);
+                        printf("Codigo: %d\n", contato[i].codigo);
                     }                   
-                    printf("Digite o código do contato que você quer excluir: \n");
+                    printf("Digite o codigo do contato que voce quer excluir: \n");
                     scanf("%d", &ident);
                     
                     exclusao(ident);
                     
                 }else {
-                    printf("Não existem contatos cadastrados.");
+                    printf("\nNao existem contatos cadastrados.\n");
                 }
                 break;
 
             case 3:
             //Alterar um contato existente
-                printf("Digite o código do contato que você quer alterar: \n");
-                scanf("%d", &ident);
+                if (n > 0) {
+                    printf("Digite o codigo do contato que voce quer alterar: \n");
+                    scanf("%d", &ident);
 
-                alteracao(ident);
-
+                    alteracao(ident);
+                } else{
+                    printf("\nNao existem contatos cadastrados.\n");
+                }
             break;
             
             case 4:
             //Lista todos os contatos cadastrados
-                listagem();
-                
+                if (n > 0) {
+                    listagem();
+                } else{
+                    printf("\nNao existem contatos cadastrados.\n");
+                }
             break;
 
             case 5:
             //Localizar um contato
-                printf("Digite o código do contato que você quer localizar: \n");
-                scanf("%d", &ident);
+                if (n > 0) {
+                    printf("Digite o codigo do contato que voce quer localizar: \n");
+                    scanf("%d", &ident);
 
-                localizador(ident);
-                
+                    localizador(ident);
+                } else{
+                    printf("\nNao existem contatos cadastrados.\n");
+                }
             break;
 
-            //Opção padrão para encerrar o programa quando o usuário apertar uma tecla que não seja de 1 a 5
+            //Opcao padrao para encerrar o programa quando o usuario apertar uma tecla que nao seja de 1 a 5
             default:
                 return 0;
         }
     }while(main!=0);
 }
 
-//Funções
+//Funcoes
 void listagem(){
     for(int w = 0; w < n; w++){
         printf("\n-- Contato %d --\n", w+1);
-        printf("Código: %d \n", contato[w].codigo);
+        printf("Codigo: %d \n", contato[w].codigo);
         printf("Nome: %s \n", contato[w].nome);
         printf("Telefone: %s \n", contato[w].telefone);
+        printf("Tipo: %s \n", exibeTipo(contato[w].tipo));
     }
 }
 
 void localizador(){
     if(ident > 0 && ident <= n){
         printf("\n-- Contato %d --\n", ident);
-        printf("Código: %d \n", contato[ident-1].codigo);
+        printf("Codigo: %d \n", contato[ident-1].codigo);
         printf("Nome: %s \n", contato[ident-1].nome);
         printf("Telefone: %s \n", contato[ident-1].telefone);
+        printf("Tipo: %s \n", exibeTipo(contato[ident-1].tipo));
     }
     else{
-        printf("Contato inválido!\n");
+        printf("Contato invalido!\n");
     }
 }
 void alteracao(){
@@ -145,39 +158,81 @@ void alteracao(){
         scanf("%s", contato[ident-1].nome);
         printf("Digite o novo valor para o telefone do contato %d (%s): \n",contato[ident-1].codigo, contato[ident-1].telefone);
         scanf("%s", contato[ident-1].telefone);
+        
+        int verificacao = 0;
+        do{
+            printf("Digite o novo valor para o tipo do contato %d (%d): \n",contato[ident-1].codigo, contato[ident-1].tipo);
+            scanf("%d", &entrada);
+            verificacao = validaEnum(entrada);
+            if(verificacao == 0){
+                printf("Entrada invalida! Por favor digite novamente:\n");
+        }
+        }
+        while (verificacao == 0);
+        contato[ident-1].tipo = entrada;
 
         printf("Contato alterado com sucesso.\n");
     }
     else{
-        printf("Contato inválido!\n");
+        printf("Contato invalido!\n");
     }
 }
 void exclusao(){
     if(ident > 0 && ident <= n){
-        for( int e = ident; e < n; e++){
-            strncpy(contato[ident-1].nome, contato[ident].nome, sizeof(contato[ident].nome));
-            strncpy(contato[ident-1].telefone, contato[ident].telefone, sizeof(contato[ident].telefone));
-            //contato[ident].tipo = contato[ident+1].tipo;
-            contato[ident-1].codigo = contato[ident].codigo;
+        for( int e = ident; e <= n; e++){
+            strncpy(contato[e-1].nome, contato[ident].nome, sizeof(contato[e].nome));
+            strncpy(contato[e-1].telefone, contato[ident].telefone, sizeof(contato[e].telefone));
+            contato[e-1].tipo = contato[e].tipo;
+            contato[e-1].codigo = contato[e].codigo;
         } 
         n = n - 1;
-        //contato = realloc (contato, (sizeof(Contato)*(n)));
-        printf("Contato excluído com sucesso.\n");
+
+        contato = realloc (contato, (sizeof(Contato)*(n)));
+
+        printf("Contato excluido com sucesso.\n");
     } else {
-        printf("Código do contato não encontrado.\n");
+        printf("Codigo do contato nao encontrado.\n");
     }
 }
 void inclusao(){
     contato = realloc (contato, (sizeof(Contato)*(n+1)));
-    (contato+n)->codigo = n+1;
+    (contato+n)->codigo = cont+1;
 
-    printf("Digite o nome do contato que será salvo com o código %d: \n",contato[n].codigo);
+    printf("Digite o nome do contato que sera salvo com o codigo %d: \n", cont+1);
     scanf("%s", contato[n].nome);
 
-    printf("Digite o número de telefone do contato que será salvo com o código %d: \n",contato[n].codigo);
+    printf("Digite o numero de telefone do contato que sera salvo com o codigo %d: \n", cont+1);
     scanf("%s", contato[n].telefone);
 
-    printf("Contato incluído com sucesso.\n");
+    int verificacao = 0;
+    do{
+        printf("Digite o tipo de contato que sera salvo com o codigo %d (0 para Pessoal, 1 para Trabalho): \n", cont+1);
+        scanf("%d", &entrada);
+        verificacao = validaEnum(entrada);
+        if(verificacao == 0){
+            printf("Entrada invalida! Por favor digite novamente:\n");
+        }
+    }
+    while (verificacao == 0);
+    contato[n].tipo = entrada;
 
+    printf("Contato incluido com sucesso.\n");
+
+    //"cont" é a contagem de vezes que a inclusão é rodada, e "n" é a posição do último índice do vetor
+    cont++;
     n++;
+}
+int validaEnum(){
+    if(entrada < 0 || entrada > 1){
+        return 0;
+    }else{
+        return 1;
+    }
+}
+const char* exibeTipo(int param){
+    if (param == 0){
+        return "Pessoal";
+    }else{
+        return"Trabalho";
+    }
 }
